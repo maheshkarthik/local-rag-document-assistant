@@ -4,6 +4,8 @@ Upload your documents, ask questions, and get AI-powered answers with source cit
 
 Everything is local: PDF parsing, embeddings, search and answer generation. No API keys, cloud services or subscriptions are needed.
 
+![The assistant answering a question about password rules, citing the security policy and showing its sources](docs/screenshot.png)
+
 ## How it works
 
 ```mermaid

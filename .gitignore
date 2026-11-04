@@ -1,0 +1,18 @@
+.venv/
+__pycache__/
+.pytest_cache/
+.env
+.DS_Store
+chroma_db/
+
+# Your own PDFs stay local; only the shareable sample documents are committed.
+data/*
+!data/.gitkeep
+!data/samples/
+
+# Personal course material
+*Course.pdf
+
+# Symlinks into .venv, which don't exist on other machines
+.agents/
+.claude/

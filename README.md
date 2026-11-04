@@ -1,8 +1,26 @@
-# Document Intelligence Assistant
+# Local RAG Document Assistant
 
 Upload your documents, ask questions, and get AI-powered answers with source citations — running entirely on your machine.
 
 Everything is local: PDF parsing, embeddings, search and answer generation. No API keys, cloud services or subscriptions are needed.
+
+## How it works
+
+```mermaid
+flowchart LR
+    A[PDF upload] --> B[Extract text per page<br/>pypdf]
+    B --> C[Split into 1,000-char chunks<br/>200-char overlap]
+    C --> D[(ChromaDB<br/>MiniLM embeddings)]
+    Q[Question] --> E[Semantic search]
+    Q --> F[BM25 keyword search]
+    D --> E
+    D --> F
+    E --> G[Reciprocal Rank Fusion]
+    F --> G
+    G --> H[Local LLM via Ollama<br/>qwen3:4b]
+    H --> I[Answer with citations<br/>filename, page]
+    I --> J[Citation check against<br/>retrieved excerpts]
+```
 
 ## Features
 
@@ -23,7 +41,8 @@ Everything is local: PDF parsing, embeddings, search and answer generation. No A
 ## Installation
 
 ```bash
-cd project-01-document-intelligence
+git clone https://github.com/maheshkarthik/local-rag-document-assistant.git
+cd local-rag-document-assistant
 
 # 1. Create and activate a virtual environment
 python3.12 -m venv .venv
@@ -127,3 +146,7 @@ chroma_db/                   Local vector database (created on first run, git-ig
 ## Privacy
 
 Documents never leave your machine. Text is processed in memory, stored only in `chroma_db/`, and sent only to the Ollama server on `localhost`. Terminal logs record filenames and counts, never document text.
+
+## License
+
+The code is released under the [MIT License](LICENSE). The sample documents in `data/samples/` are released under [CC0](https://creativecommons.org/publicdomain/zero/1.0/).
